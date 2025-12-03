@@ -5,3 +5,11 @@ api-version: '1.21'
 prefix: CDuels
 authors: [ Spog ]
 description: Duels plugin packed with features
+
+commands:
+  kit:
+    usage: /kit <subcommand>
+    aliases:
+      - kits
+      - k
+      - chocolate

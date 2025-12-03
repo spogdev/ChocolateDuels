@@ -1,0 +1,28 @@
+config-version: 1 # INTERNAL VALUE, DO NOT CHANGE THIS
+
+data:
+  # how the plugin should store data
+  # YAML = in YAML files in the plugin folder (DEFAULT)
+  # REMOTEDB = at a remote database address
+  # LOCALDB = at a .db file in the plugin folder
+  method: 'YAML'
+
+  use-cache: false # if the plugin should use a cache to store player data until the player disconnects. This results in efficient and quicker retrieval and less load on systems with slower disk drives.
+  # ^ only enable if your server can afford to spend more RAM for each online player
+  cache-autosave-period: 120 # how long the cache should autosave player data (set to -1 to disable autosaving)
+
+
+  remotedb: # how the plugin should connect to remote database (only if data.method 'REMOTEDB' selected, else this will be ignored)
+    # what protocol should be used to connect and interact with the database
+    # supported: JDBC
+    # (more to come)
+    connect: 'JDBC'
+
+    address: ''
+    username: ''
+    password: ''
+
+kit:
+  prevent-claiming-if-inventory-full: false
+  overwrite-player-inventories: true # when loading a kit, should the players current inventory be overwritten (deleted) for the new kit
+

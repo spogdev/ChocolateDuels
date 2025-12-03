@@ -1,4 +1,4 @@
-package live.spog.chocolateDuels.gui.icons;
+package live.spog.chocolateDuels.gui;
 
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
@@ -60,24 +60,26 @@ public enum Icons {
         ItemMeta meta = item.getItemMeta();
         meta.displayName(Component.text(this.getName()).color(TextColor.fromHexString(this.getColor())));
         meta.lore(this.getLoreAsComponentList());
-        meta.getPersistentDataContainer().set(new NamespacedKey("cd", "buttonType"), PersistentDataType.STRING, this.name());
+        meta.getPersistentDataContainer().set(new NamespacedKey("cd", "button_type"), PersistentDataType.STRING, this.name());
         item.setItemMeta(meta);
         return item;
     }
 
     public boolean equals(ItemStack item) {
-        if (item == null || item.getType() != Material.AIR) {
+        if (item == null || item.getType() == Material.AIR) {
             return false;
         }
 
-        if (!item.hasItemMeta()) {}
+        if (!item.hasItemMeta()) {
+            return false;
+        }
 
         ItemMeta meta = item.getItemMeta();
 
-        if (meta.getPersistentDataContainer().has(new NamespacedKey("cd", "buttonType"), PersistentDataType.STRING)) {
+        if (meta.getPersistentDataContainer().has(new NamespacedKey("cd", "button_type"), PersistentDataType.STRING)) {
             Icons icon;
             try {
-                icon = Icons.valueOf(meta.getPersistentDataContainer().get(new NamespacedKey("cd", "buttonType"), PersistentDataType.STRING));
+                icon = Icons.valueOf(meta.getPersistentDataContainer().get(new NamespacedKey("cd", "button_type"), PersistentDataType.STRING));
             } catch (Exception e) {
                 return false;
             }
@@ -88,16 +90,19 @@ public enum Icons {
     }
 
     public static boolean isIcon(ItemStack item) {
-        if (item == null || item.getType() != Material.AIR) {
+        if (item == null || item.getType() == Material.AIR) {
+            return false;
+        }
+
+        if (!item.hasItemMeta()) {
             return false;
         }
 
         ItemMeta meta = item.getItemMeta();
 
-        if (meta.getPersistentDataContainer().has(new NamespacedKey("cd", "buttonType"), PersistentDataType.STRING)) {
-            Icons icon;
+        if (meta.getPersistentDataContainer().has(new NamespacedKey("cd", "button_type"), PersistentDataType.STRING)) {
             try {
-                icon = Icons.valueOf(meta.getPersistentDataContainer().get(new NamespacedKey("cd", "buttonType"), PersistentDataType.STRING));
+                Icons.valueOf(meta.getPersistentDataContainer().get(new NamespacedKey("cd", "button_type"), PersistentDataType.STRING));
             } catch (Exception e) {
                 return false;
             }
