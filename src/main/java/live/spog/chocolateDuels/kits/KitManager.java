@@ -58,10 +58,10 @@ public class KitManager implements Listener {
         PlayerInventory inventory = player.getInventory();
 
         inventory.setContents(kit.getItems());
-        inventory.setHelmet(kit.getArmor()[0]);
-        inventory.setChestplate(kit.getArmor()[1]);
-        inventory.setLeggings(kit.getArmor()[2]);
-        inventory.setBoots(kit.getArmor()[3]);
+        inventory.setHelmet(kit.getArmor()[3]);
+        inventory.setChestplate(kit.getArmor()[2]);
+        inventory.setLeggings(kit.getArmor()[1]);
+        inventory.setBoots(kit.getArmor()[0]);
         inventory.setItemInOffHand(kit.getOffHand());
 
         player.sendMessage(ChatColor.GREEN + name + " has been loaded to inventory");

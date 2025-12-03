@@ -152,6 +152,7 @@ public class Kit implements ConfigurationSerializable {
 
         kits.set(this.name, this.serialize());
         plugin.saveDataFiles();
+        plugin.reloadKits();
         return true;
     }
 
@@ -192,6 +193,7 @@ public class Kit implements ConfigurationSerializable {
 
         kits.set(name, null);
         plugin.saveDataFiles();
+        plugin.reloadKits();
     }
 
     public static Kit getKit(String name) {

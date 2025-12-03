@@ -43,7 +43,6 @@ public final class DuelsPlugin extends JavaPlugin {
 
         configFile = new File(getDataFolder(), "config.yml");
 
-        // Load kits.yml (no migration needed)
         kitsFile = new File(getDataFolder(), "kits.yml");
         if (!kitsFile.exists()) saveResource("kits.yml", false);
         kits = YamlConfiguration.loadConfiguration(kitsFile);
@@ -65,6 +64,10 @@ public final class DuelsPlugin extends JavaPlugin {
             e.printStackTrace();
             return false;
         }
+    }
+
+    public void reloadKits() {
+        kits = YamlConfiguration.loadConfiguration(kitsFile);
     }
 
     public static DuelsPlugin getInstance() { return plugin; }
