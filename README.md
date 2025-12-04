@@ -8,4 +8,4 @@ A modern duels and ffa plugin inspired by popular pvp servers.
 - Parties
 - Custom per player layouts for each kit
 - Permission based kit creation
-- Support for multiple popular SMP plugins such as [Cryo SMP](https://github.com/spogdev/CryoV3)
+- Support for multiple SMP plugins such as [Cryo SMP](https://github.com/spogdev/CryoV3)
