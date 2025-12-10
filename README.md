@@ -19,4 +19,7 @@ Velocity and Folia support is planned for the future.
 > Kit limits,
 > Kit creation
 - Kit claim actions
+> Commands
+> Messages (Components)
+> Sounds
 - Developer API
