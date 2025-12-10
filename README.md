@@ -7,16 +7,16 @@ Velocity and Folia support is planned for the future.
 
 ## Target Features
 - Proxy Support
-> Instancing across backend servers from the velocity frontend
+> Instancing across backend servers from the velocity frontend\n
 > Map resetting and reloading
 - Parties
-> Party FFA
-> Party split duels
+> Party FFA\n
+> Party split duels\n
 > Party tournaments
 - Per player layouts for public and custom kits
 - Permissions
-> Kit claiming
-> Kit limits
+> Kit claiming\n
+> Kit limits\n
 > Kit creation
 - Kit claim actions
 - Developer API
