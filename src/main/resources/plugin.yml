@@ -1,8 +1,8 @@
 name: ChocolateDuels
-version: '1.0.0'
+version: '1.0.1-beta-snapshot'
 main: live.spog.chocolateDuels.DuelsPlugin
 api-version: '1.21'
-prefix: CDuels
+prefix: ChocolateDuels
 authors: [ Spog ]
 description: Duels plugin packed with features
 

@@ -32,7 +32,7 @@ public class KitCommand implements TabExecutor {
                     return true;
                 }
 
-                KitManager.kitCreator(player, args[1].toLowerCase());
+                KitManager.kitCreator(player, args[1].toLowerCase(), false);
                 break;
             case "load":
                 if (args.length != 2) {
@@ -76,6 +76,19 @@ public class KitCommand implements TabExecutor {
                 Kit.delete(args[1].toLowerCase());
                 player.sendMessage(ChatColor.GREEN + "Deleted " + args[1] + " successfully");
                 break;
+            case "view":
+                if (args.length != 2) {
+                    player.sendMessage(ChatColor.RED + "Invalid arguments");
+                    return false;
+                }
+
+                if (!Kit.exists(args[1].toLowerCase())) {
+                    player.sendMessage(ChatColor.RED + args[1] + " does not exist");
+                    return true;
+                }
+
+                KitManager.kitViewer(player, args[1].toLowerCase());
+                break;
             default:
                 player.sendMessage(ChatColor.RED + "Invalid subcommand");
                 return false;
@@ -86,7 +99,7 @@ public class KitCommand implements TabExecutor {
     @Override
     public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String s, @NotNull String @NotNull [] args) {
         if (args.length == 1) {
-            return List.of("create", "load", "list", "delete");
+            return List.of("create", "load", "list", "delete", "view");
         } else if (args.length == 2 && (args[0].equalsIgnoreCase("load") || args[0].equalsIgnoreCase("delete"))) {
             return Kit.list();
         }

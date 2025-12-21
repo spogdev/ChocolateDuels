@@ -12,8 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public enum Icons {
-    SAVE_KIT("Save Kit", Material.LIME_CONCRETE, List.of(), "#30f237"),
-    FILLER(" ", Material.GRAY_STAINED_GLASS_PANE, List.of(), "#707070");
+    SAVE_KIT("Save Kit", Material.BOOK, List.of(), "#30f237"),
+    FILLER(" ", Material.GRAY_STAINED_GLASS_PANE, List.of(), "#707070"),
+    EDIT_KIT("Edit Kit", Material.WRITABLE_BOOK, List.of(), "#ede326");
 
     private final String name;
     private final Material material;
