@@ -1,6 +1,7 @@
 package live.spog.chocolateDuels.kits;
 
 import live.spog.chocolateDuels.DuelsPlugin;
+import live.spog.chocolateDuels.utils.ItemSer;
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.MemorySection;
@@ -69,70 +70,79 @@ public class Kit implements ConfigurationSerializable {
     public @NotNull Map<String, Object> serialize() {
         List<Map<String, Object>> serializedItems = new ArrayList<>();
         ItemStack air = new ItemStack(Material.AIR);
+
         for (ItemStack item : this.items) {
-            if (item == null) {
-                serializedItems.add(air.serialize());
-                continue;
-            }
-            serializedItems.add(item.serialize());
+            serializedItems.add(ItemSer.serializeItem(item == null ? air : item));
         }
+
         List<Map<String, Object>> serializedArmor = new ArrayList<>();
         for (ItemStack item : this.armor) {
-            if (item == null) {
-                serializedArmor.add(air.serialize());
-                continue;
-            }
-            serializedArmor.add(item.serialize());
+            serializedArmor.add(ItemSer.serializeItem(item == null ? air : item));
         }
-        if (offHand == null) {
-            offHand = air;
-        }
-        return Map.of("items", serializedItems, "armor", serializedArmor, "offHand", offHand.serialize());
+
+        if (offHand == null) offHand = air;
+
+        return Map.of(
+                "items", serializedItems,
+                "armor", serializedArmor,
+                "offHand", ItemSer.serializeItem(offHand)
+        );
     }
 
-    public static Kit deserialize(Map<String, Object> serialized) {
 
+    public static Kit deserialize(Map<String, Object> serialized) {
         List<ItemStack> deserializedItems = new ArrayList<>();
 
         Object rawItems = serialized.get("items");
         if (rawItems instanceof MemorySection section) {
             for (String key : section.getKeys(false)) {
-                Map<String, Object> data = section.getConfigurationSection(key).getValues(true);
-                deserializedItems.add(ItemStack.deserialize(data));
+                var cs = section.getConfigurationSection(key);
+                if (cs == null) {
+                    deserializedItems.add(new ItemStack(Material.AIR));
+                    continue;
+                }
+                Map<String, Object> data = cs.getValues(false); // IMPORTANT
+                deserializedItems.add(ItemSer.deserializeItem(data));
             }
         } else if (rawItems instanceof List<?> list) {
             for (Object o : list) {
-                deserializedItems.add(ItemStack.deserialize((Map<String, Object>) o));
+                @SuppressWarnings("unchecked")
+                Map<String, Object> data = (Map<String, Object>) o;
+                deserializedItems.add(ItemSer.deserializeItem(data));
             }
         }
 
-
         List<ItemStack> deserializedArmor = new ArrayList<>();
-
         Object rawArmor = serialized.get("armor");
         if (rawArmor instanceof MemorySection section) {
             for (String key : section.getKeys(false)) {
-                Map<String, Object> data = section.getConfigurationSection(key).getValues(true);
-                deserializedArmor.add(ItemStack.deserialize(data));
+                var cs = section.getConfigurationSection(key);
+                if (cs == null) {
+                    deserializedArmor.add(new ItemStack(Material.AIR));
+                    continue;
+                }
+                Map<String, Object> data = cs.getValues(false); // IMPORTANT
+                deserializedArmor.add(ItemSer.deserializeItem(data));
             }
         } else if (rawArmor instanceof List<?> list) {
             for (Object o : list) {
-                deserializedArmor.add(ItemStack.deserialize((Map<String, Object>) o));
+                @SuppressWarnings("unchecked")
+                Map<String, Object> data = (Map<String, Object>) o;
+                deserializedArmor.add(ItemSer.deserializeItem(data));
             }
         }
 
-
-        Map<String, Object> offhandMap;
         Object rawOffhand = serialized.get("offHand");
-
+        Map<String, Object> offhandMap;
         if (rawOffhand instanceof MemorySection section) {
-            offhandMap = section.getValues(true);
+            offhandMap = section.getValues(false); // IMPORTANT
         } else {
-            offhandMap = (Map<String, Object>) rawOffhand;
+            @SuppressWarnings("unchecked")
+            Map<String, Object> data = (Map<String, Object>) rawOffhand;
+            offhandMap = data;
         }
 
-        ItemStack offhand = ItemStack.deserialize(offhandMap);
-
+        ItemStack offhand = ItemSer.deserializeItem(offhandMap);
 
         return new Kit(
                 deserializedItems.toArray(new ItemStack[0]),
@@ -224,5 +234,4 @@ public class Kit implements ConfigurationSerializable {
         Collections.sort(keys);
         return keys;
     }
-
 }
