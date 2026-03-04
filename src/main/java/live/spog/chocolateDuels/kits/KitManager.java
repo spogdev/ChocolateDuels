@@ -6,6 +6,8 @@ import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.Sound;
+import org.bukkit.block.Sign;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -91,9 +93,39 @@ public class KitManager implements Listener {
         inventory.setItem(50, filler);
         inventory.setItem(51, filler);
         inventory.setItem(52, filler);
-        inventory.setItem(53, filler);
+        if (player.hasPermission("chocolateduels.edit")) {
+            inventory.setItem(53, Icons.EDIT_KIT.build());
+        } else {
+            inventory.setItem(53, filler);
+        }
 
         Utils.applyIdentifier(inventory, 50, "kit_viewer");
+        Utils.applyArtifact(inventory, 50, "kit_name", name);
+
+        inventory.setItem(45, kit.getArmor()[3]);
+        inventory.setItem(46, kit.getArmor()[2]);
+        inventory.setItem(47, kit.getArmor()[1]);
+        inventory.setItem(48, kit.getArmor()[0]);
+        inventory.setItem(49, kit.getOffHand());
+
+        player.openInventory(inventory);
+    }
+
+    public static void kitEditor(Player player, String name) {
+        ItemStack filler = Icons.FILLER.build();
+        Inventory inventory = Bukkit.createInventory(player, 54, Component.text("Kit Editor"));
+
+        Kit kit = Kit.getKit(name);
+
+        inventory.setContents(kit.getItems());
+
+        Utils.setLine(inventory, 4, filler, true);
+        inventory.setItem(50, filler);
+        inventory.setItem(51, filler);
+        inventory.setItem(52, filler);
+        inventory.setItem(53, Icons.SAVE_KIT.build());
+
+        Utils.applyIdentifier(inventory, 50, "kit_editor");
         Utils.applyArtifact(inventory, 50, "kit_name", name);
 
         inventory.setItem(45, kit.getArmor()[3]);
@@ -144,15 +176,17 @@ public class KitManager implements Listener {
                 Kit kit = new Kit(name, kit_items, kit_armor, offhand);
 
                 if (kit.save()) {
-                    player.sendMessage(ChatColor.GREEN + "Kit '" + name + "' created");
+                    player.sendMessage(ChatColor.GREEN + "Kit '" + name + "' saved");
                 } else {
-                    player.sendMessage(ChatColor.RED + "Failed to create kit, Please contact an admin");
+                    player.sendMessage(ChatColor.RED + "Failed to create kit");
                 }
+                player.playSound(player, Sound.ITEM_BOOK_PAGE_TURN, 1, 1);
+                player.closeInventory();
             } else if (Icons.EDIT_KIT.equals(item)) {
                 String name = Utils.getArtifact(inventory, 50, "kit_name");
+                player.playSound(player, Sound.UI_BUTTON_CLICK, 1, 1);
+                kitEditor(player, name);
             }
         }
-
-
     }
 }

@@ -1,10 +1,10 @@
 name: ChocolateDuels
-version: '1.0.1-beta-snapshot'
+version: '1.0.2-beta'
 main: live.spog.chocolateDuels.DuelsPlugin
 api-version: '1.21'
 prefix: ChocolateDuels
 authors: [ Spog ]
-description: Duels plugin packed with features
+description: Prototype duels plugin made with larger servers in mind
 
 commands:
   kit:
@@ -13,3 +13,20 @@ commands:
       - kits
       - k
       - chocolate
+
+permissions:
+  chocolateduels.create:
+    description: /kit create <name>
+    default: op
+  chocolateduels.delete:
+    description: /kit delete <kit>
+    default: op
+  chocolateduels.view:
+    description: /kit view <kit> and /kit list
+    default: true
+  chocolateduels.load:
+    description: /kit load <kit>
+    default: true
+  chocolateduels.edit:
+    description: /kit rename <kit> <new name> and /kit edit <kit>
+    default: op

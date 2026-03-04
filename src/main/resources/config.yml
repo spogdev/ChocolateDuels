@@ -11,7 +11,6 @@ data:
   # ^ only enable if your server can afford to spend more RAM for each online player
   cache-autosave-period: 120 # how long the cache should autosave player data (set to -1 to disable autosaving)
 
-
   remotedb: # how the plugin should connect to remote database (only if data.method 'REMOTEDB' selected, else this will be ignored)
     # what protocol should be used to connect and interact with the database
     # supported: JDBC

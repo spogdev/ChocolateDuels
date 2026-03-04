@@ -234,4 +234,11 @@ public class Kit implements ConfigurationSerializable {
         Collections.sort(keys);
         return keys;
     }
+
+    public Kit rename(String name) {
+        Kit.delete(this.name);
+        this.setName(name);
+        this.save();
+        return this;
+    }
 }

@@ -14,6 +14,7 @@ import java.util.List;
 public enum Icons {
     SAVE_KIT("Save Kit", Material.BOOK, List.of(), "#30f237"),
     FILLER(" ", Material.GRAY_STAINED_GLASS_PANE, List.of(), "#707070"),
+    RENAME_KIT("Rename Kit", Material.NAME_TAG, List.of(), "#ede326" ),
     EDIT_KIT("Edit Kit", Material.WRITABLE_BOOK, List.of(), "#ede326");
 
     private final String name;
