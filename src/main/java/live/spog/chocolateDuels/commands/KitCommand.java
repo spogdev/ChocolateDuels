@@ -82,11 +82,11 @@ public class KitCommand implements TabExecutor {
                         TextComponent viewButton = Component.text("[View] ")
                                 .color(NamedTextColor.AQUA)
                                 .clickEvent(ClickEvent.runCommand("/kits view " + name))
-                                .hoverEvent(HoverEvent.showText(Component.text("Click to edit '" + name + "'", NamedTextColor.AQUA)));
+                                .hoverEvent(HoverEvent.showText(Component.text("Click to view '" + name + "'", NamedTextColor.AQUA)));
                         TextComponent editButton = Component.text("[Edit]")
                                 .color(NamedTextColor.GOLD)
                                 .clickEvent(ClickEvent.runCommand("/kits edit " + name))
-                                .hoverEvent(HoverEvent.showText(Component.text("Click to view '" + name + "'", NamedTextColor.GOLD)));
+                                .hoverEvent(HoverEvent.showText(Component.text("Click to edit '" + name + "'", NamedTextColor.GOLD)));
 
                         if (!player.hasPermission("chocolateduels.edit")) {
                             editButton = Component.text("");
